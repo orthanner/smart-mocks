@@ -14,6 +14,8 @@ public interface SmartMockService
 
     Optional<SmartMock> findById(Long id);
 
+    void deleteById(Long id);
+
     SmartMock save(SmartMock smartMock);
 
     SmartMock update(Long id, SmartMock smartMock);

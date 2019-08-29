@@ -3,6 +3,7 @@ package ru.sbrf.simanov.smart.mock.config.service;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.sbrf.simanov.smart.mock.repository.SmartMockRepository;
+import ru.sbrf.simanov.smart.mock.service.SmartMockCacheService;
 import ru.sbrf.simanov.smart.mock.service.SmartMockService;
 import ru.sbrf.simanov.smart.mock.service.SmartMockServiceImpl;
 
@@ -23,6 +24,12 @@ public class ServiceConfig
     public SmartMockService smartMockService()
     {
         return new SmartMockServiceImpl(smartMockRepository);
+    }
+
+    @Bean
+    public SmartMockCacheService smartMockCacheService()
+    {
+        return new SmartMockCacheService(smartMockService());
     }
 
 }

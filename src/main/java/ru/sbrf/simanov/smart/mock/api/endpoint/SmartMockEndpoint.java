@@ -9,7 +9,6 @@ import ru.sbrf.simanov.smart.mock.api.dto.GenerateMockRqDto;
 import ru.sbrf.simanov.smart.mock.api.dto.SmartMockRsDto;
 import ru.sbrf.simanov.smart.mock.api.dto.SmartMockSaveDto;
 import ru.sbrf.simanov.smart.mock.api.processor.SmartMockRqProcessor;
-import ru.sbrf.simanov.smart.mock.entity.SmartMock;
 
 import java.util.List;
 
@@ -47,6 +46,13 @@ public class SmartMockEndpoint
     public ResponseEntity<SmartMockRsDto> update(@PathVariable("id") Long id, @RequestBody SmartMockSaveDto smartMockSaveDto)
     {
         return ResponseEntity.ok(smartMockRqProcessor.update(id, smartMockSaveDto));
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete")
+    public void delete(@PathVariable("id") Long id)
+    {
+        smartMockRqProcessor.deleteById(id);
     }
 
     @PostMapping

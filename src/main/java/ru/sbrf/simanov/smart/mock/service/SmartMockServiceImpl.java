@@ -1,5 +1,7 @@
 package ru.sbrf.simanov.smart.mock.service;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.sbrf.simanov.smart.mock.entity.SmartMock;
 import ru.sbrf.simanov.smart.mock.repository.SmartMockRepository;
 
@@ -20,18 +22,27 @@ public class SmartMockServiceImpl implements SmartMockService
     }
 
     @Override
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Optional<List<SmartMock>> findByRequestName(String requestName)
     {
-        return Optional.of(smartMockRepository.findByRequestNameOrderByUpdateTimeDesc(requestName));
+        return smartMockRepository.findAllByRequestNameOrderByUpdateTimeDesc(requestName);
     }
 
     @Override
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Optional<SmartMock> findById(Long id)
     {
         return smartMockRepository.findById(id);
     }
 
     @Override
+    public void deleteById(Long id)
+    {
+        smartMockRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
     public SmartMock save(SmartMock smartMock)
     {
         checkEntity(smartMock);
@@ -63,12 +74,13 @@ public class SmartMockServiceImpl implements SmartMockService
     }
 
     @Override
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Optional<SmartMock> findByRequestNameAndBody(String requestName, String requestBody)
     {
         return findByRequestName(requestName)
                 .flatMap(smartMocks -> smartMocks.stream()
-                .filter(smartMock -> smartMock.match(requestBody).isPresent())
-                .findFirst());
+                    .filter(smartMock -> smartMock.match(requestBody).isPresent())
+                    .findFirst());
     }
 
     private void checkEntity(SmartMock smartMock)
