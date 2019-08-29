@@ -1,0 +1,4 @@
+# Application monitor info
+info:
+  app:
+    environment: system-test

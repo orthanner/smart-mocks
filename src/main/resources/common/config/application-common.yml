@@ -1,0 +1,50 @@
+# Spring config
+spring:
+  application:
+    name: smart-mocks
+  # Spring boot admin config
+  boot:
+    admin:
+      client:
+        enabled: false
+        url: http://localhost:8060/admin
+        username: "admin"
+        password: "1234"
+        period: 60000
+        auto-registration: true
+        auto-deregistration: true
+        register-once: false
+
+# Server config
+server:
+  http2:
+    enabled: true
+  servlet:
+    context-path: /smart-mocks/api
+  port: 8085
+  use-forward-headers: true
+
+# Application monitor info
+info:
+  app:
+    name: Smart mocks
+    description: Service for generate smart mocks
+    environment: unknow
+
+# Application monitor
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      base-path: /monitor
+      exposure:
+        include: auditevents,caches,configprops,env,health,info,metrics,scheduledtasks,shutdown,sessions
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+  metrics:
+    cache:
+      instrument-cache: true
