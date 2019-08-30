@@ -1,3 +1,3 @@
 spring:
   profiles:
-    active: common,dev,db-@active-database@
+    active: common,@spring-profile-active@,@spring-profile-db@

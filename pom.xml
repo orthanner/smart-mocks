@@ -180,6 +180,9 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <spring-profile-active>dev</spring-profile-active>
+            </properties>
             <build>
                 <resources>
                     <resource>
@@ -195,7 +198,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <active-database>h2</active-database>
+                <spring-profile-db>db-h2</spring-profile-db>
             </properties>
             <build>
                 <resources>
@@ -220,7 +223,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <active-database>oracle</active-database>
+                <spring-profile-db>db-oracle</spring-profile-db>
             </properties>
             <build>
                 <resources>
