@@ -26,6 +26,6 @@ public class EndpointConfig
     @Bean
     public SmartMockRqProcessor smartMockRqProcessor()
     {
-        return new SmartMockRqProcessorImpl(serviceConfig.smartMockCacheService());
+        return new SmartMockRqProcessorImpl(serviceConfig.smartMockService());
     }
 }

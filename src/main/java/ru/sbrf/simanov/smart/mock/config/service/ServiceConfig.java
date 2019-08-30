@@ -23,13 +23,6 @@ public class ServiceConfig
     @Bean
     public SmartMockService smartMockService()
     {
-        return new SmartMockServiceImpl(smartMockRepository);
+        return new SmartMockCacheService(new SmartMockServiceImpl(smartMockRepository));
     }
-
-    @Bean
-    public SmartMockCacheService smartMockCacheService()
-    {
-        return new SmartMockCacheService(smartMockService());
-    }
-
 }
