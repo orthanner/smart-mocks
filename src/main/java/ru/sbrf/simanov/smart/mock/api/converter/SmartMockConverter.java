@@ -6,9 +6,15 @@ import ru.sbrf.simanov.smart.mock.entity.SmartMock;
 
 /**
  * created by simanov-an
+ * Утилитный класс для конвертации DTO
  */
 public class SmartMockConverter
 {
+    /**
+     * Конвертировать в DTO
+     * @param smartMock объект логики приложения
+     * @return dto
+     */
     public static SmartMockRsDto smartMockRsDto(SmartMock smartMock)
     {
         return new SmartMockRsDto(
@@ -20,6 +26,11 @@ public class SmartMockConverter
         );
     }
 
+    /**
+     * Конвертировать в объект логики приложения
+     * @param smartMockSaveDto dto create/update
+     * @return объект логики приложения
+     */
     public static SmartMock smartMock(SmartMockSaveDto smartMockSaveDto)
     {
         return new SmartMock(

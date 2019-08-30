@@ -177,7 +177,6 @@
     <profiles>
         <profile>
             <id>dev</id>
-            <properties></properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -189,6 +188,23 @@
                     </resource>
                 </resources>
             </build>
+        </profile>
+        <profile>
+            <id>db-h2</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <active-database>h2</active-database>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/db-h2</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
             <dependencies>
                 <!-- DataBase -->
                 <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
@@ -196,6 +212,26 @@
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
                 </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>db-oracle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <active-database>oracle</active-database>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/db-oracle</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+            <dependencies>
+            <!-- TODO зависимость oracle driver-->
             </dependencies>
         </profile>
     </profiles>

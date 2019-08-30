@@ -8,6 +8,7 @@ import java.util.Optional;
 
 /**
  * created by simanov-an
+ * Реализация сервиса заглушек с кешом
  */
 @CacheConfig(cacheNames = {"smart-mocks"})
 public class SmartMockCacheService implements SmartMockService

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 /**
  * created by simanov-an
+ * Базовая реализация сервиса заглушек
  */
 public class SmartMockServiceImpl implements SmartMockService
 {

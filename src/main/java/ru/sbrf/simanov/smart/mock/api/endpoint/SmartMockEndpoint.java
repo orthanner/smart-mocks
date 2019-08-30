@@ -16,7 +16,7 @@ import java.util.List;
  * created by simanov-an
  */
 @RestController
-@RequestMapping(value = "/v1/smart-mock", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/v1/smart-mock/common", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api("Smart mock service information")
 public class SmartMockEndpoint
 {

@@ -1,14 +1,19 @@
 package ru.sbrf.simanov.smart.mock.config.database;
 
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import ru.sbrf.simanov.smart.mock.config.property.PropertyConfig;
+
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.util.Properties;
 
 
 @Configuration
@@ -17,25 +22,23 @@ public class HibernateConfig
 {
     private static final String ENTITY_PACKAGE = "ru.sbrf.simanov.smart.mock.entity";
 
-    private final PropertyConfig propertyConfig;
-    private final DataSourceHolder dataSourceHolder;
+    private final DataSource dataSource;
 
-    public HibernateConfig(PropertyConfig propertyConfig, DataSourceHolder dataSourceHolder)
+    public HibernateConfig(DataSource dataSource)
     {
-        this.propertyConfig = propertyConfig;
-        this.dataSourceHolder = dataSourceHolder;
+        this.dataSource = dataSource;
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory()
     {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSourceHolder.dataSource());
+        em.setDataSource(dataSource);
         em.setPackagesToScan(ENTITY_PACKAGE);
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(propertyConfig.hibernateProperties());
+        em.setJpaProperties(hibernateProperties());
 
         return em;
     }
@@ -47,5 +50,22 @@ public class HibernateConfig
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return transactionManager;
+    }
+
+    @Bean
+    public Properties hibernateProperties()
+    {
+        try
+        {
+            PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
+            propertiesFactoryBean.setLocations(new ClassPathResource("config/hibernate.properties"));
+            propertiesFactoryBean.afterPropertiesSet();
+
+            return propertiesFactoryBean.getObject();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }

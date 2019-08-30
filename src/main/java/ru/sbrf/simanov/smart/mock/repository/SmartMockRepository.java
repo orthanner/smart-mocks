@@ -9,9 +9,15 @@ import java.util.Optional;
 
 /**
  * created by simanov-an
+ * Репозиторий для запросов к хранилищу заглушек
  */
 @Repository
 public interface SmartMockRepository extends JpaRepository<SmartMock, Long>
 {
+    /**
+     * Получить список заглушек
+     * @param requestName название запроса заглушки
+     * @return список заглушек
+     */
     Optional<List<SmartMock>> findAllByRequestNameOrderByUpdateTimeDesc(String requestName);
 }
