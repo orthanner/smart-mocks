@@ -19,7 +19,7 @@ public interface SmartMockRqProcessor
      * @param requestName название запроса
      * @return список заглушек по названию запроса
      */
-    Optional<List<SmartMockRsDto>> getList(String requestName);
+    List<SmartMockRsDto> getList(String requestName);
 
     /**
      * Получить заглушку по ID

@@ -23,12 +23,12 @@ public class SmartMockRqProcessorImpl implements SmartMockRqProcessor
     }
 
     @Override
-    public Optional<List<SmartMockRsDto>> getList(String requestName)
+    public List<SmartMockRsDto> getList(String requestName)
     {
         return smartMockService.findByRequestName(requestName)
-                .map(smartMocks -> smartMocks.stream()
-                    .map(SmartMockConverter::smartMockRsDto)
-                    .collect(Collectors.toList()));
+                .stream()
+                .map(SmartMockConverter::smartMockRsDto)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -21,8 +21,8 @@ public class SmartMockCacheService implements SmartMockService
     }
 
     @Override
-    @Cacheable(key = "'findByRequestName' + #requestName", sync = true)
-    public Optional<List<SmartMock>> findByRequestName(String requestName)
+//    @Cacheable(key = "'findByRequestName' + #requestName", sync = true)
+    public List<SmartMock> findByRequestName(String requestName)
     {
         return delegate.findByRequestName(requestName);
     }
@@ -36,11 +36,14 @@ public class SmartMockCacheService implements SmartMockService
 
     @Override
     @Caching(evict = {
-            // TODO Подумать как очищать кеши по названию @CacheEvict(key = "'findByRequestName' + #smartMock.requestName"),
             @CacheEvict(key = "'findById' + #id")})
     public void deleteById(Long id)
     {
-        delegate.deleteById(id);
+        Optional<SmartMock> smartMock = delegate.findById(id);
+        if (smartMock.isPresent())
+        {
+            delegate.deleteById(id);
+        }
     }
 
     @Override

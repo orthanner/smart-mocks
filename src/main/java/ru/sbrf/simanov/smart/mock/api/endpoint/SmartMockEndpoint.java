@@ -31,7 +31,7 @@ public class SmartMockEndpoint
     @ApiOperation(value = "View list")
     public ResponseEntity<List<SmartMockRsDto>> getList(@RequestParam String requestName)
     {
-        return ResponseEntity.of(smartMockRqProcessor.getList(requestName));
+        return ResponseEntity.ok(smartMockRqProcessor.getList(requestName));
     }
 
     @GetMapping("/{id}")

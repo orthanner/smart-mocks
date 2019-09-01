@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.sbrf.simanov.smart.mock.entity.SmartMock;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * created by simanov-an
@@ -19,5 +18,5 @@ public interface SmartMockRepository extends JpaRepository<SmartMock, Long>
      * @param requestName название запроса заглушки
      * @return список заглушек
      */
-    Optional<List<SmartMock>> findAllByRequestNameOrderByUpdateTimeDesc(String requestName);
+    List<SmartMock> findAllByRequestNameOrderByUpdateTimeDesc(String requestName);
 }

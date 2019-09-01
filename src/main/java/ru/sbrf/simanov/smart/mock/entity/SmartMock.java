@@ -30,11 +30,17 @@ public class SmartMock implements Serializable
     @Column(name = "UPDATE_TIME", nullable = false)
     private Calendar updateTime;
 
+    @Column(name = "MOCK_NAME", nullable = false)
+    private String mockName;
+
     @Column(name = "REQUEST_NAME", nullable = false)
     private String requestName;
 
     @Column(name = "REG_EXPRESSION", nullable = false)
     private String regExpression;
+
+    @Column(name = "ROLL_CHANCE", nullable = false)
+    private Long rollChance;
 
     @Column(name = "RESPONSE_BODY", nullable = false)
     private String responseBody;

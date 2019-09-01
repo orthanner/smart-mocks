@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:smart-mocks
+    url: jdbc:h2:mem:smart-mocks;DB_CLOSE_ON_EXIT=FALSE;IFEXISTS=FALSE;DB_CLOSE_DELAY=-1;
     driverClassName: org.h2.Driver
     type: com.zaxxer.hikari.HikariDataSource
     username: sa
@@ -8,6 +8,7 @@ spring:
     initialization-mode: always
     platform: h2
     schema: classpath:/config/schema.sql
+    data: classpath:/config/data.sql
     hikari:
       connectionTimeout: 30000
       idle-timeout: 60000
@@ -18,7 +19,7 @@ spring:
       pool-name: HikariDataSourcePool
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect

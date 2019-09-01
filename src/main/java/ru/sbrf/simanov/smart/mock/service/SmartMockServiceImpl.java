@@ -1,5 +1,8 @@
 package ru.sbrf.simanov.smart.mock.service;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.math3.distribution.EnumeratedDistribution;
+import org.apache.commons.math3.util.Pair;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sbrf.simanov.smart.mock.entity.SmartMock;
@@ -8,6 +11,7 @@ import ru.sbrf.simanov.smart.mock.repository.SmartMockRepository;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * created by simanov-an
@@ -24,7 +28,7 @@ public class SmartMockServiceImpl implements SmartMockService
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-    public Optional<List<SmartMock>> findByRequestName(String requestName)
+    public List<SmartMock> findByRequestName(String requestName)
     {
         return smartMockRepository.findAllByRequestNameOrderByUpdateTimeDesc(requestName);
     }
@@ -62,6 +66,8 @@ public class SmartMockServiceImpl implements SmartMockService
         existSmartMock.setRegExpression(smartMock.getRegExpression());
         existSmartMock.setRequestName(smartMock.getRequestName());
         existSmartMock.setResponseBody(smartMock.getResponseBody());
+        if (smartMock.getRollChance() != null)
+            existSmartMock.setRollChance(smartMock.getRollChance());
 
         return save(existSmartMock);
     }
@@ -70,6 +76,8 @@ public class SmartMockServiceImpl implements SmartMockService
     public SmartMock create(SmartMock smartMock)
     {
         smartMock.setUpdateTime(Calendar.getInstance());
+        if (smartMock.getRollChance() == null)
+            smartMock.setRollChance(100L);
 
         return save(smartMock);
     }
@@ -78,10 +86,17 @@ public class SmartMockServiceImpl implements SmartMockService
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Optional<SmartMock> findByRequestNameAndBody(String requestName, String requestBody)
     {
-        return findByRequestName(requestName)
-                .flatMap(smartMocks -> smartMocks.stream()
+        List<SmartMock> result = findByRequestName(requestName);
+        if (CollectionUtils.isNotEmpty(result))
+        {
+            List<Pair<SmartMock, Double>> weights = result.stream()
                     .filter(smartMock -> smartMock.match(requestBody).isPresent())
-                    .findFirst());
+                    .map(smartMock -> new Pair<>(smartMock, smartMock.getRollChance() / 100.d))
+                    .collect(Collectors.toList());
+            return Optional.of(new EnumeratedDistribution<>(weights).sample());
+        }
+
+        return Optional.empty();
     }
 
     private void checkEntity(SmartMock smartMock)

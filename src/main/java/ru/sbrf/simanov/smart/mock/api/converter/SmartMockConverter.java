@@ -20,8 +20,10 @@ public class SmartMockConverter
         return new SmartMockRsDto(
                 smartMock.getId(),
                 smartMock.getUpdateTime(),
+                smartMock.getMockName(),
                 smartMock.getRequestName(),
                 smartMock.getRegExpression(),
+                smartMock.getRollChance(),
                 smartMock.getResponseBody()
         );
     }
@@ -36,8 +38,10 @@ public class SmartMockConverter
         return new SmartMock(
                 null,
                 null,
+                smartMockSaveDto.getMockName(),
                 smartMockSaveDto.getRequestName(),
                 smartMockSaveDto.getRegExpression(),
+                smartMockSaveDto.getRollChance(),
                 smartMockSaveDto.getResponseBody());
     }
 }

@@ -15,7 +15,7 @@ public interface SmartMockService
      * @param requestName название запроса
      * @return список заглушек по названию запроса
      */
-    Optional<List<SmartMock>> findByRequestName(String requestName);
+    List<SmartMock> findByRequestName(String requestName);
 
     /**
      * Получить заглушку по ID
