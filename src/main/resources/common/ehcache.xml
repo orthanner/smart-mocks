@@ -9,7 +9,13 @@
         </expiry>
     </cache-template>
 
-    <cache alias="smart-mocks" uses-template="baseCacheTemplate">
+    <cache alias="smart-mocks-findById" uses-template="baseCacheTemplate">
+        <resources>
+            <heap unit="entries">100</heap>
+        </resources>
+    </cache>
+
+    <cache alias="smart-mocks-findByRequestName" uses-template="baseCacheTemplate">
         <resources>
             <heap unit="entries">100</heap>
         </resources>

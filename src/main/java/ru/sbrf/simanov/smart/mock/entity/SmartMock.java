@@ -24,7 +24,7 @@ public class SmartMock implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SM_ID")
     @SequenceGenerator(name = "SEQ_SM_ID", sequenceName = "SEQ_SM_ID", allocationSize = 10)
-    @Column(name = "ID", updatable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "UPDATE_TIME", nullable = false)
