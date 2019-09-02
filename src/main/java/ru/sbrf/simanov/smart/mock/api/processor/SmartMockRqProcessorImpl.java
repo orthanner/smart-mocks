@@ -1,5 +1,7 @@
 package ru.sbrf.simanov.smart.mock.api.processor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.sbrf.simanov.smart.mock.api.converter.SmartMockConverter;
 import ru.sbrf.simanov.smart.mock.api.dto.GenerateMockRqDto;
 import ru.sbrf.simanov.smart.mock.api.dto.SmartMockRsDto;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
  */
 public class SmartMockRqProcessorImpl implements SmartMockRqProcessor
 {
+    private static final Logger log = LoggerFactory.getLogger(SmartMockRqProcessorImpl.class);
+
     private final SmartMockService smartMockService;
 
     public SmartMockRqProcessorImpl(SmartMockService smartMockService)
@@ -60,7 +64,21 @@ public class SmartMockRqProcessorImpl implements SmartMockRqProcessor
     @Override
     public Optional<SmartMockRsDto> generateResponse(GenerateMockRqDto generateMockRqDto)
     {
-        return smartMockService.findByRequestNameAndBody(generateMockRqDto.getRequestName(), generateMockRqDto.getRequestBody())
+        Optional<SmartMockRsDto> result = smartMockService.findByRequestNameAndBody(
+                generateMockRqDto.getRequestName(), generateMockRqDto.getRequestBody())
                 .map(SmartMockConverter::smartMockRsDto);
+
+        if (result.isPresent())
+        {
+            log.info(String.format("По запросу %s успешно сгенерирована заглушка %s",
+                    generateMockRqDto.getRequestName(), result.get().getMockName()));
+        }
+        else
+        {
+            log.info(String.format("По запросу %s не удалось сгенерировать заглушку, тело запроса\n%s",
+                    generateMockRqDto.getRequestName(), generateMockRqDto.getRequestBody()));
+        }
+
+        return result;
     }
 }
