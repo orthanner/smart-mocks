@@ -66,6 +66,7 @@ public class SmartMockServiceImpl implements SmartMockService
         existSmartMock.setRegExpression(smartMock.getRegExpression());
         existSmartMock.setRequestName(smartMock.getRequestName());
         existSmartMock.setResponseBody(smartMock.getResponseBody());
+        existSmartMock.setMockName(smartMock.getMockName());
         if (smartMock.getRollChance() != null)
             existSmartMock.setRollChance(smartMock.getRollChance());
 
