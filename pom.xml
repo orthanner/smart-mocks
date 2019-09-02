@@ -257,7 +257,11 @@
                 </resources>
             </build>
             <dependencies>
-            <!-- TODO зависимость oracle driver-->
+                <dependency>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc7</artifactId>
+                    <version>7.0</version>
+                </dependency>
             </dependencies>
         </profile>
     </profiles>
@@ -266,6 +270,29 @@
         <finalName>${jar-name}</finalName>
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install-oracle-jdbc</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>com.oracle</groupId>
+                            <artifactId>ojdbc7</artifactId>
+                            <version>7.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <createChecksum>true</createChecksum>
+                            <file>${project.basedir}/libs/ojdbc7.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
