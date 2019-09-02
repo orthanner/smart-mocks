@@ -57,7 +57,7 @@ public class SmartMockCacheService implements SmartMockService
         if (smartMock.isPresent())
         {
             delegate.deleteById(id);
-            evictFromCacheFindByRequestName(FIND_BY_REQUEST_NAME_PREF + smartMock.get().getRequestName());
+            evictFromCacheFindByRequestName(smartMock.get().getRequestName());
         }
         else
         {
@@ -70,7 +70,7 @@ public class SmartMockCacheService implements SmartMockService
     public SmartMock save(SmartMock smartMock)
     {
         SmartMock result = delegate.save(smartMock);
-        evictFromCacheFindByRequestName(FIND_BY_REQUEST_NAME_PREF + result.getRequestName());
+        evictFromCacheFindByRequestName(result.getRequestName());
         return result;
     }
 
@@ -79,7 +79,7 @@ public class SmartMockCacheService implements SmartMockService
     public SmartMock update(Long id, SmartMock smartMock)
     {
         SmartMock result = delegate.update(id, smartMock);
-        evictFromCacheFindByRequestName(FIND_BY_REQUEST_NAME_PREF + result.getRequestName());
+        evictFromCacheFindByRequestName(result.getRequestName());
         return result;
     }
 
@@ -88,7 +88,7 @@ public class SmartMockCacheService implements SmartMockService
     public SmartMock create(SmartMock smartMock)
     {
         SmartMock result = delegate.create(smartMock);
-        evictFromCacheFindByRequestName(FIND_BY_REQUEST_NAME_PREF + result.getRequestName());
+        evictFromCacheFindByRequestName(result.getRequestName());
         return result;
     }
 
