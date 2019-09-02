@@ -10,8 +10,9 @@ spring:
       idle-timeout: 60000
       max-lifetime: 120000
       auto-commit: false
-      minimum-idle: 2
+      minimum-idle: 1
       maximum-pool-size: 2
       pool-name: HikariDataSourcePool
   jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect
+    open-in-view: false

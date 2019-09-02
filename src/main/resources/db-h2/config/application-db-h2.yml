@@ -14,7 +14,7 @@ spring:
       idle-timeout: 60000
       max-lifetime: 120000
       auto-commit: false
-      minimum-idle: 2
+      minimum-idle: 1
       maximum-pool-size: 2
       pool-name: HikariDataSourcePool
   h2:
@@ -23,4 +23,5 @@ spring:
       path: /h2-console
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
 

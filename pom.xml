@@ -31,6 +31,7 @@
         <liquibase.version>3.6.3</liquibase.version>
 
         <encache.version>3.7.0</encache.version>
+        <jaxb.version>2.3.0</jaxb.version>
 
         <swagger.version>2.9.2</swagger.version>
 
@@ -147,6 +148,21 @@
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>${encache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.version}</version>
         </dependency>
 
         <!-- Swagger -->
