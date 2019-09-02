@@ -1,0 +1,16 @@
+version: '3'
+services:
+  erib:
+    image: erib
+    container_name: erib
+    ports:
+      - "8080:9080"
+      - "8888:8888"
+      - "9443:9443"
+    depends_on:
+      - smart-mocks
+  smart-mocks:
+    image: smart-mocks
+    container_name: smart-mocks
+    ports:
+      - "8085:8085"
