@@ -42,6 +42,12 @@ public class SmartMock implements Serializable
     @Column(name = "ROLL_CHANCE", nullable = false)
     private Long rollChance;
 
+    @Column(name = "TIMEOUT_CHANCE")
+    private Long timeoutChance;
+
+    @Column(name = "TIMEOUT")
+    private Long timeout;
+
     @Column(name = "RESPONSE_BODY", nullable = false)
     private String responseBody;
 
@@ -73,6 +79,11 @@ public class SmartMock implements Serializable
         }
 
         return Optional.empty();
+    }
+
+    public boolean isTimeoutSimulationEnabled()
+    {
+        return getTimeoutChance() != null && getTimeout() != null;
     }
 
 }

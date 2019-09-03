@@ -24,6 +24,8 @@ public class SmartMockConverter
                 smartMock.getRequestName(),
                 smartMock.getRegExpression(),
                 smartMock.getRollChance(),
+                smartMock.getTimeoutChance(),
+                smartMock.getTimeout(),
                 smartMock.getResponseBody()
         );
     }
@@ -42,6 +44,8 @@ public class SmartMockConverter
                 smartMockSaveDto.getRequestName(),
                 smartMockSaveDto.getRegExpression(),
                 smartMockSaveDto.getRollChance(),
+                smartMockSaveDto.getTimeoutChance(),
+                smartMockSaveDto.getTimeout(),
                 smartMockSaveDto.getResponseBody());
     }
 }

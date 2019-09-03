@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sbrf.simanov.smart.mock.entity.SmartMock;
 import ru.sbrf.simanov.smart.mock.repository.SmartMockRepository;
+import ru.sbrf.simanov.smart.mock.service.processor.SmartMockProcessor;
 
 import java.util.Calendar;
 import java.util.List;
@@ -20,10 +21,12 @@ import java.util.stream.Collectors;
 public class SmartMockServiceImpl implements SmartMockService
 {
     private final SmartMockRepository smartMockRepository;
+    private final List<SmartMockProcessor> processorList;
 
-    public SmartMockServiceImpl(SmartMockRepository smartMockRepository)
+    public SmartMockServiceImpl(SmartMockRepository smartMockRepository, List<SmartMockProcessor> processorList)
     {
         this.smartMockRepository = smartMockRepository;
+        this.processorList = processorList;
     }
 
     @Override
@@ -69,6 +72,8 @@ public class SmartMockServiceImpl implements SmartMockService
         existSmartMock.setMockName(smartMock.getMockName());
         if (smartMock.getRollChance() != null)
             existSmartMock.setRollChance(smartMock.getRollChance());
+        existSmartMock.setTimeoutChance(smartMock.getTimeoutChance());
+        existSmartMock.setTimeout(smartMock.getTimeout());
 
         return save(existSmartMock);
     }
@@ -94,7 +99,14 @@ public class SmartMockServiceImpl implements SmartMockService
                     .filter(smartMock -> smartMock.match(requestBody).isPresent())
                     .map(smartMock -> new Pair<>(smartMock, smartMock.getRollChance() / 100.d))
                     .collect(Collectors.toList());
-            return Optional.of(new EnumeratedDistribution<>(weights).sample());
+
+            Optional<SmartMock> smartMockOptional = Optional.of(new EnumeratedDistribution<>(weights).sample());
+            for (SmartMockProcessor processor : processorList)
+            {
+                smartMockOptional = processor.process(requestBody, smartMockOptional);
+            }
+
+            return smartMockOptional;
         }
 
         return Optional.empty();

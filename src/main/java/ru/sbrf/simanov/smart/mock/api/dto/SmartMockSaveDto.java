@@ -28,6 +28,12 @@ public class SmartMockSaveDto
     @ApiModelProperty(value = "Chance choose this mock from 1% to 100%, default 100%")
     private Long rollChance;
 
+    @ApiModelProperty(value = "Chance to wait response from 1% to 100%")
+    private Long timeoutChance;
+
+    @ApiModelProperty(value = "Timeout wait in seconds")
+    private Long timeout;
+
     @ApiModelProperty(value = "Response body", required = true)
     private String responseBody;
 

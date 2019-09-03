@@ -7,6 +7,11 @@ import ru.sbrf.simanov.smart.mock.repository.SmartMockRepository;
 import ru.sbrf.simanov.smart.mock.service.SmartMockCacheService;
 import ru.sbrf.simanov.smart.mock.service.SmartMockService;
 import ru.sbrf.simanov.smart.mock.service.SmartMockServiceImpl;
+import ru.sbrf.simanov.smart.mock.service.processor.SmartMockProcessor;
+import ru.sbrf.simanov.smart.mock.service.processor.TimeoutSmartMockProcessor;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * created by simanov-an on 2019-08-29
@@ -26,6 +31,12 @@ public class ServiceConfig
     @Bean
     public SmartMockService smartMockService()
     {
-        return new SmartMockCacheService(cacheManager, new SmartMockServiceImpl(smartMockRepository));
+        return new SmartMockCacheService(cacheManager,
+                new SmartMockServiceImpl(smartMockRepository, smartMockProcessors()));
+    }
+
+    private List<SmartMockProcessor> smartMockProcessors()
+    {
+        return Collections.unmodifiableList(Collections.singletonList(new TimeoutSmartMockProcessor()));
     }
 }
