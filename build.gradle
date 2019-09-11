@@ -28,13 +28,18 @@ repositories {
         maven { url 'https://repo.spring.io/milestone' }
 }
 
+def springBootVersion = "2.1.8.RELEASE"
+def swaggerVersion = "2.9.2"
+def jaxbRelease = "2.3.0"
+def lombokVersion = "1.18.8"
+
 dependencies {
     compile 'de.codecentric:spring-boot-admin-starter-client:2.1.5'
-    compile 'org.springframework.boot:spring-boot-starter-web:2.1.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.1.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc:2.1.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-configuration-processor:2.1.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-cache:2.1.6.RELEASE'
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
     compile 'com.h2database:h2:1.4.199'
     compile 'org.apache.commons:commons-lang3:3.8.1'
     compile 'org.apache.commons:commons-collections4:4.3'
@@ -42,14 +47,14 @@ dependencies {
     compile 'javax.cache:cache-api:1.1.1'
     compile 'org.ehcache:ehcache:3.7.0'
     compile 'javax.xml.bind:jaxb-api:2.3.1'
-    compile 'com.sun.xml.bind:jaxb-core:2.3.0'
-    compile 'com.sun.xml.bind:jaxb-impl:2.3.0'
-    compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    compile "com.sun.xml.bind:jaxb-core:${jaxbRelease}"
+    compile "com.sun.xml.bind:jaxb-impl:${jaxbRelease}"
+    compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+    compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.testng:testng:6.14.2'
-    compileOnly 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 group = 'ru.sbrf.simanov'
